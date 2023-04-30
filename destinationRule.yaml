@@ -1,0 +1,35 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: demo-dr
+  namespace: demo
+spec:
+  host: webserver
+  trafficPolicy:
+
+### Security Option ###
+    tls:
+      mode: ISTIO_MUTUAL
+
+### Connection Pool Settings ###
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 30ms
+        tcpKeepalive:
+          time: 7200s
+          interval: 75s
+
+### LoadBalancing Algorithms ###
+    loadBalancer: 
+      simple: ROUND_ROBIN
+#      simple: LEAST_CONN
+#      simple: RANDOM
+
+  subsets:
+  - name: green
+    labels:
+      app: green
+  - name: blue
+    labels:
+      app: blue
