@@ -7,7 +7,7 @@ spec:
   hosts:
   - green.local.com
   gateways:
-  - demo-gateway
+  - demo1-gateway
   http:
   - route:
     - destination:
@@ -25,7 +25,7 @@ spec:
   hosts:
   - blue.local.com
   gateways:
-  - demo-gateway
+  - demo1-gateway
   http:
   - route:
     - destination:

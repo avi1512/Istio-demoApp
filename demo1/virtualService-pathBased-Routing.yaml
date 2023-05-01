@@ -5,10 +5,10 @@ metadata:
   namespace: demo
 spec:
   hosts:
-  - demo.local.com
+  - demo1.local.com
 
   gateways:
-  - demo-gateway
+  - demo1-gateway
 
   http:
   - name: green

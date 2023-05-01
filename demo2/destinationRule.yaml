@@ -1,0 +1,66 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: app1-dr
+  namespace: demo
+spec:
+  host: app1-svc.demo.svc.cluster.local
+  trafficPolicy:
+
+### Security Option ###
+    tls:
+      mode: ISTIO_MUTUAL
+
+### Connection Pool Settings ###
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 30ms
+        tcpKeepalive:
+          time: 7200s
+          interval: 75s
+
+### LoadBalancing Algorithms ###
+    loadBalancer: 
+      simple: ROUND_ROBIN
+#      simple: LEAST_CONN
+#      simple: RANDOM
+
+  subsets:
+  - name: app1
+    labels:
+      app: app1
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: app2-dr
+  namespace: demo
+spec:
+  host: app2-svc.demo.svc.cluster.local
+  trafficPolicy:
+
+### Security Option ###
+    tls:
+      mode: ISTIO_MUTUAL
+
+### Connection Pool Settings ###
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 30ms
+        tcpKeepalive:
+          time: 7200s
+          interval: 75s
+
+### LoadBalancing Algorithms ###
+    loadBalancer:
+      simple: ROUND_ROBIN
+#      simple: LEAST_CONN
+#      simple: RANDOM
+
+  subsets:
+  - name: app2
+    labels:
+      app: app2
