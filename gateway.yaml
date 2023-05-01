@@ -12,5 +12,7 @@ spec:
       number: 80
       protocol: HTTP
     hosts:
-    - green.local.com
-    - blue.local.com  
+    - '*'
+#    - demo.local.com
+#    - green.local.com
+#    - blue.local.com  

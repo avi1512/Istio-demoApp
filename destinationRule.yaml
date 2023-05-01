@@ -1,10 +1,10 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: demo-dr
+  name: green-dr
   namespace: demo
 spec:
-  host: webserver
+  host: green-svc.demo.svc.cluster.local
   trafficPolicy:
 
 ### Security Option ###
@@ -27,9 +27,40 @@ spec:
 #      simple: RANDOM
 
   subsets:
-  - name: green
+  - name: green-app
     labels:
       app: green
-  - name: blue
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: blue-dr
+  namespace: demo
+spec:
+  host: blue-svc.demo.svc.cluster.local
+  trafficPolicy:
+
+### Security Option ###
+    tls:
+      mode: ISTIO_MUTUAL
+
+### Connection Pool Settings ###
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 30ms
+        tcpKeepalive:
+          time: 7200s
+          interval: 75s
+
+### LoadBalancing Algorithms ###
+    loadBalancer:
+      simple: ROUND_ROBIN
+#      simple: LEAST_CONN
+#      simple: RANDOM
+
+  subsets:
+  - name: blue-app
     labels:
       app: blue
