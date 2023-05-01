@@ -5,15 +5,16 @@ metadata:
   namespace: demo
 spec:
   hosts:
-  - "green.local.com"
+  - green.local.com
   gateways:
-  - "demo-gateway"
+  - demo-gateway
   http:
   - route:
     - destination:
         host: green-svc.demo.svc.cluster.local
         port:
           number: 80
+        subset: green-app
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -22,12 +23,13 @@ metadata:
   namespace: demo
 spec:
   hosts:
-  - "blue.local.com"
+  - blue.local.com
   gateways:
-  - "demo-gateway"
+  - demo-gateway
   http:
   - route:
     - destination:
         host: blue-svc.demo.svc.cluster.local
         port: 
           number: 80
+        subset: blue-app

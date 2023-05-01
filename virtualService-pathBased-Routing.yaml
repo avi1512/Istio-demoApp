@@ -5,23 +5,31 @@ metadata:
   namespace: demo
 spec:
   hosts:
-  - "demo.local.com"
+  - demo.local.com
+
   gateways:
-  - "demo-gateway"
+  - demo-gateway
+
   http:
-  - name: webserver
+  - name: green
     match:
     - uri: 
-        prefix: "/green"
+        prefix: /green
+    rewrite:
+      uri: /
     route:
     - destination: 
-        host: green
-        subset: green
-  - name: webserver
+        host: green-svc.demo.svc.cluster.local
+        subset: green-app
+
+
+  - name: blue
     match: 
     - uri:
-        prefix: "/blue"
+        prefix: /blue
+    rewrite:
+      uri: /
     route:
     - destination:
-        host: blue
-        subset: blue
+        host: blue-svc.demo.svc.cluster.local
+        subset: blue-app
