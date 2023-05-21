@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: green-vs
+  name: hostbased-green-vs
   namespace: demo
 spec:
   hosts:
@@ -19,7 +19,7 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: blue-vs
+  name: hostbased-blue-vs
   namespace: demo
 spec:
   hosts:
